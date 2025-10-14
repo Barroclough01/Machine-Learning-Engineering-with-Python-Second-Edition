@@ -10,6 +10,17 @@ rs = RandomState(MT19937(SeedSequence(123456789)))
 
 # Define simulate ride data function
 def simulate_ride_distances():
+    """
+    Simulates ride distances data.
+
+    Simulates 370 ride distances with normal distribution around 10,
+    10 ride distances with normal distribution around 30 (long distances),
+    10 ride distances with normal distribution around 10 (same distance),
+    and 10 ride distances with normal distribution around 10 (same distance).
+    
+    Returns:
+        ride_dists (numpy.ndarray): An array of simulated ride distances.
+    """
     logging.info('Simulating ride distances ...')
     ride_dists = np.concatenate(
         (
@@ -22,6 +33,17 @@ def simulate_ride_distances():
     return ride_dists
 
 def simulate_ride_speeds():
+    """
+    Simulates ride speeds data.
+
+    Simulates 370 ride speeds with normal distribution around 30,
+    10 ride speeds with normal distribution around 30 (same speed),
+    10 ride speeds with normal distribution around 50 (high speed),
+    and 10 ride speeds with normal distribution around 15 (low speed).
+    
+    Returns:
+        ride_speeds (numpy.ndarray): An array of simulated ride speeds.
+    """
     logging.info('Simulating ride speeds ...')
     ride_speeds = np.concatenate(
         (
@@ -35,6 +57,15 @@ def simulate_ride_speeds():
 
 
 def simulate_ride_data():
+    """
+    Simulates ride data.
+
+    Simulates ride distances, speeds, and times.
+    Assembles them into a Data Frame with ride_id as the index.
+
+    Returns:
+        df (pandas.DataFrame): A DataFrame containing ride data.
+    """
     logging.info('Simulating ride data ...')
     # Simulate some ride data ...
     ride_dists = simulate_ride_distances()
@@ -63,6 +94,26 @@ from sklearn.cluster import DBSCAN
 from sklearn import metrics
 
 def plot_cluster_results(data, labels, core_samples_mask, n_clusters_):
+    """
+    Plots the results of DBSCAN clustering algorithm.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        Array of data points to be plotted.
+    labels : numpy.ndarray
+        Array of labels corresponding to the data points.
+    core_samples_mask : numpy.ndarray
+        Array of boolean values indicating which data points are core samples.
+    n_clusters_ : int
+        Estimated number of clusters.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        Figure object containing the plot.
+
+    """
     fig = plt.figure(figsize=(10, 10))
     # Black removed and is used for noise instead.
     unique_labels = set(labels)
@@ -87,6 +138,25 @@ def plot_cluster_results(data, labels, core_samples_mask, n_clusters_):
     plt.savefig('taxi-rides.png')
 
 def cluster_and_label(data, create_and_show_plot=True):
+    """
+    Clusters the given data with DBSCAN algorithm and returns the results.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        Array of data points to be clustered.
+    create_and_show_plot : bool
+        Whether to create and show the plot of the clustering results.
+
+    Returns
+    -------
+    run_metadata : dict
+        A dictionary containing the results of the clustering algorithm.
+        It includes the estimated number of clusters, the estimated number of noise points,
+        the silhouette coefficient, and the labels of the data points.
+
+    """
+
     data = StandardScaler().fit_transform(data)
     db = DBSCAN(eps=0.3, min_samples=10).fit(data)
 

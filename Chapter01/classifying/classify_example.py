@@ -13,6 +13,20 @@ from imblearn.over_sampling import SMOTE
 def ingest_and_prep_data(
         bank_dataset: str = 'bank_data/bank.csv'
     ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Ingest and prepare the bank dataset for classification.
+
+    Parameters
+    ----------
+    bank_dataset : str, optional
+        Path to the bank dataset CSV file. Defaults to 'bank_data/bank.csv'.
+
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        A tuple containing the preprocessed training and test data, and the
+        corresponding target vectors.
+    """
     df = pd.read_csv('bank_data/bank.csv', delimiter=';', decimal=',')
     
     # Assume there was some EDA and feature analysis to select below
@@ -34,11 +48,42 @@ def ingest_and_prep_data(
     return X_train, X_test, y_train, y_test
 
 def rebalance_classes(X: pd.DataFrame, y: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Rebalance the classes of a dataset using SMOTE.
+
+    Parameters
+    ----------
+    X : pd.DataFrame
+        The features of the dataset.
+    y : pd.DataFrame
+        The target variable of the dataset.
+
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        A tuple containing the rebalanced features and target variable.
+    """
     sm = SMOTE()
     X_balanced, y_balanced = sm.fit_resample(X, y)
     return X_balanced, y_balanced
 
 def get_hyperparam_grid() -> dict:
+    """
+    Returns a dictionary containing the hyperparameters for a random forest classifier.
+
+    The hyperparameters included are:
+    - n_estimators: the number of trees in the forest
+    - max_features: the number of features to consider at every split
+    - max_depth: the maximum number of levels in the tree
+    - min_samples_split: the minimum number of samples required to split a node
+    - min_samples_leaf: the minimum number of samples required at each leaf node
+    - bootstrap: the method of selecting samples for training each tree
+
+    Returns
+    -------
+    dict
+        A dictionary containing the hyperparameters for a random forest classifier.
+    """
     # Hyperparameter optimisation
     n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=10)]
     # Number of features to consider at every split
