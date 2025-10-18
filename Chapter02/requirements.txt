@@ -144,7 +144,7 @@ trove-classifiers==2023.3.9
 typing_extensions==4.5.0
 uri-template==1.2.0
 urllib3==1.26.15
-virtualenv==20.21.0
+virtualenv
 wcwidth==0.2.6
 webargs==8.2.0
 webcolors==1.12
