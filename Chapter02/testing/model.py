@@ -5,6 +5,21 @@ import numpy as np
 
 
 def cluster_and_label(X):
+    """
+    Clusters the given data with DBSCAN algorithm and returns the results.
+
+    Parameters
+    ----------
+    X : numpy.ndarray
+        Array of data points to be clustered.
+
+    Returns
+    -------
+    run_metadata : dict
+        A dictionary containing the results of the clustering algorithm.
+        It includes the estimated number of clusters, the estimated number of noise points,
+        the silhouette coefficient, and the labels of the data points.
+    """
     X = StandardScaler().fit_transform(X)
     db = DBSCAN(eps=0.3, min_samples=10).fit(X)
 

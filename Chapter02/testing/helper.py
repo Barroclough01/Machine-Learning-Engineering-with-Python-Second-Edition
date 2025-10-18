@@ -10,6 +10,24 @@ rs = RandomState(MT19937(SeedSequence(123456789)))
 
 # Define simulate ride data function
 def simulate_ride_data():
+    """
+    Simulates ride data.
+
+    Simulates 370 ride distances with normal distribution around 10,
+    10 ride distances with normal distribution around 30 (long distances),
+    10 ride distances with normal distribution around 10 (same distance),
+    and 10 ride distances with normal distribution around 10 (same distance).
+    
+    Simulates 370 ride speeds with normal distribution around 30,
+    10 ride speeds with normal distribution around 30 (same speed),
+    10 ride speeds with normal distribution around 50 (high speed),
+    and 10 ride speeds with normal distribution around 15 (low speed).
+    
+    Assembles them into a Data Frame with ride_id as the index.
+
+    Returns:
+        df_sim (pandas.DataFrame): A DataFrame containing simulated ride data.
+    """
     # Simulate some ride data ...
     ride_dists = np.concatenate(
         (
@@ -44,9 +62,19 @@ def simulate_ride_data():
 
 
 def get_taxi_data():
+    
+    """
+    Reads in taxi ride data from a csv file or simulates it if not present.
+
+    Args:
+        None
+
+    Returns:
+        df (pandas.DataFrame): A DataFrame containing taxi ride data.
+    """
     # If data present, read it in
-    #file_path = f'''../../chapter1/batch-anomaly/data/taxi-rides.csv''' #relative
-    file_path = f'''chapter1/batch-anomaly/data/taxi-rides.csv''' #from top dir
+    file_path = '../../Chapter01/clustering/taxi-rides.csv' #relative
+    #file_path = f'''chapter1/batch-anomaly/data/taxi-rides.csv''' #from top dir
     if os.path.exists(file_path):
         df = pd.read_csv(file_path)
     else:
