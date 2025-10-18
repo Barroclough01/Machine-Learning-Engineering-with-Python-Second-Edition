@@ -34,5 +34,6 @@ jobs:
         working-directory: Chapter02
       - name: Test with pytest
         run: |
+          $env:PYTHONPATH = "${{ github.workspace }}\\Chapter02"
           pytest -v
         working-directory: Chapter02
