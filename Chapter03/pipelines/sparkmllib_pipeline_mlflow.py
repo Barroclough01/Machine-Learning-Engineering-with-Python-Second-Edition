@@ -11,7 +11,7 @@ categoricalColumns = ["job", "marital", "education", "contact", "housing", "loan
 stages = []
 
 spark = SparkSession.builder.getOrCreate()
-data = spark.read.csv("../../chapter1/stream-classifier/data/banks.csv")
+data = spark.read.csv("../../chapter1/classifying/bank_data/bank.csv")
 
 for categoricalCol in categoricalColumns:
     # fill some nulls
@@ -67,6 +67,19 @@ cvModel = cv.fit(trainingData)
 
 # MODEL EVALUATION
 def evaluate(predictionAndLabels):
+    """
+    Evaluate a model by computing various metrics.
+
+    Parameters
+    ----------
+    predictedAndLabels : pyspark.sql.dataframe.DataFrame
+        A DataFrame containing the predicted labels and the actual labels.
+
+    Returns
+    -------
+    log : dict
+        A dictionary containing the metrics computed.
+    """
     log = {}
     # show validation score (AUROC)
     evaluator = BinaryClassificationEvaluator(metricName='areaUnderROC')

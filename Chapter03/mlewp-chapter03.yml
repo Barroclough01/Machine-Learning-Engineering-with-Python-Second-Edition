@@ -63,7 +63,6 @@ dependencies:
   - graphql-core=3.2.6
   - graphql-relay=3.2.0
   - greenlet=3.1.1
-  - gunicorn=23.0.0
   - h2=4.2.0
   - hpack=4.1.0
   - hyperframe=6.1.0
@@ -89,13 +88,9 @@ dependencies:
   - libcblas=3.9.0
   - libcrc32c=1.1.2
   - libcurl=8.11.1
-  - libcxx=19.1.7
   - libdeflate=1.23
-  - libedit=3.1.20250104
-  - libev=4.33
   - libevent=2.1.12
   - libffi=3.4.2
-  - libgfortran=5.0.0
   - libgfortran5=13.2.0
   - libgoogle-cloud=2.34.0
   - libgoogle-cloud-storage=2.34.0
@@ -132,7 +127,6 @@ dependencies:
   - mlflow-ui=2.20.1
   - multidict=6.1.0
   - munkres=1.1.4
-  - ncurses=6.5
   - numpy=1.26.4
   - openjpeg=2.5.3
   - openssl=3.4.0
@@ -175,7 +169,6 @@ dependencies:
   - qhull=2020.2
   - querystring_parser=1.2.4
   - re2=2024.07.02
-  - readline=8.2
   - requests=2.32.3
   - rsa=4.9
   - scikit-learn=1.6.1
@@ -201,11 +194,9 @@ dependencies:
   - xorg-libxau=1.0.12
   - xorg-libxdmcp=1.1.5
   - xz=5.6.4
-  - xz-gpl-tools=5.6.4
   - xz-tools=5.6.4
   - yaml=0.2.5
   - yarl=1.18.3
   - zipp=3.21.0
   - zstandard=0.23.0
   - zstd=1.5.6
-prefix: /opt/homebrew/Caskroom/miniforge/base/envs/mlewp-chapter03-hotfix

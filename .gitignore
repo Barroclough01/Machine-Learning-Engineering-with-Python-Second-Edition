@@ -168,5 +168,6 @@ cython_debug/
 **/artifacts/model
 **/artifacts/** 
 **/mlruns/** 
+Chapter03/mlflow-db
 Chapter08/.DS_Store
 Chapter09/.DS_Store
