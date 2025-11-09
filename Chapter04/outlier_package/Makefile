@@ -8,10 +8,10 @@ PROJECT_NAME := mlewp-ed2-ch4-outliers
 PYTHON_INTERPRETER := python3
 ARCH := $(shell $(PYTHON_INTERPRETER) -c "import platform; print(platform.platform())")
 VIRTUALENV := conda
-CONDA_EXE ?= /opt/homebrew/bin/conda # macos # ~/anaconda3/bin/conda #FOR LINUX
+CONDA_EXE ?= ~/home/paxto/miniforge3/bin/conda # macos # ~/anaconda3/bin/conda #FOR LINUX
 EASYDATA_LOCKFILE := environment.$(ARCH).lock.yml
 
-$(EASYDATA_LOCKFILE): environment.yml
+$(EASYDATA_LOCKFILE): environment-linux.yml
 ifeq (conda, $(VIRTUALENV))
 	$(CONDA_EXE) env update -n $(PROJECT_NAME) -f $<
 	$(CONDA_EXE) env export -n $(PROJECT_NAME) -f $@
@@ -95,27 +95,28 @@ help_update_easydata:
 	@echo "git checkout main"
 	@echo "git merge easydata"
 
-.PHONY: debug_environment
-## dump useful debugging information to $(DEBUG_FILE)
-debug_environment:
-	@echo "\n\n======================"
-	@echo "\nPlease include the contents $(DEBUG_FILE) when submitting an issue or support request.\n"
-	@echo "======================\n\n"
-	@echo "##\n## Git status\n##\n" > $(DEBUG_FILE)
-	git status >> $(DEBUG_FILE)
-	@echo "\n##\n## git log\n##\n" >> $(DEBUG_FILE)
-	git log -8 --graph --oneline --decorate --all >> $(DEBUG_FILE)
-	@echo "\n##\n## Github remotes\n##\n" >> $(DEBUG_FILE)
-	git remote -v >> $(DEBUG_FILE)
-	@echo "\n##\n## github SSH credentials\n##\n" >> $(DEBUG_FILE)
-	ssh git@github.com 2>&1 | cat >> $(DEBUG_FILE)
-	@echo "\n##\n## Conda config\n##\n" >> $(DEBUG_FILE)
-	$(CONDA_EXE) config --get >> $(DEBUG_FILE)
-	@echo "\n##\n## Conda info\n##\n" >> $(DEBUG_FILE)
-	$(CONDA_EXE) info  >> $(DEBUG_FILE)
-	@echo "\n##\n## Conda list\n##\n" >> $(DEBUG_FILE)
-	$(CONDA_EXE) list >> $(DEBUG_FILE)
+DEBUG_FILE=debug_info.txt
 
+.PHONY: debug_environment
+debug_environment:
+	@echo "======================" > $(DEBUG_FILE)
+	@echo "Please include the contents of $(DEBUG_FILE) when submitting an issue." >> $(DEBUG_FILE)
+	@echo "======================" >> $(DEBUG_FILE)
+	@echo "## Git status" >> $(DEBUG_FILE)
+	git status >> $(DEBUG_FILE)
+	@echo "## Git log" >> $(DEBUG_FILE)
+	git log -8 --graph --oneline --decorate --all >> $(DEBUG_FILE)
+	@echo "## GitHub remotes" >> $(DEBUG_FILE)
+	git remote -v >> $(DEBUG_FILE)
+	@echo "## GitHub SSH test" >> $(DEBUG_FILE)
+	ssh -T git@github.com 2>&1 | cat >> $(DEBUG_FILE)
+	@echo "## Conda config" >> $(DEBUG_FILE)
+	$(CONDA_EXE) config --get >> $(DEBUG_FILE)
+	@echo "## Conda info" >> $(DEBUG_FILE)
+	$(CONDA_EXE) info >> $(DEBUG_FILE)
+	@echo "## Conda list" >> $(DEBUG_FILE)
+	$(CONDA_EXE) list >> $(DEBUG_FILE)
+	
 .PHONY: unfinished
 unfinished:
 	@echo "WARNING: this target is unfinished and may be removed or changed dramatically in future releases"

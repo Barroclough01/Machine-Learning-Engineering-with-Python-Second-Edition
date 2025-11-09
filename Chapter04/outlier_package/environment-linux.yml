@@ -30,4 +30,4 @@ dependencies:
     - safety
     - wheel>=0.38.1
     - bandit
-prefix: /home/andrew/anaconda3/envs/mlewp-ed2-ch4
+prefix: /home/paxto/miniconda3/envs/mlewp-ed2-ch4

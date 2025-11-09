@@ -162,6 +162,7 @@ cython_debug/
 #Other - potentially vs code
 *.DS_Store
 */.DS_Store
+Chapter04/outlier_package/debug_info.txt
 
 
 #MLFlow etc
