@@ -1,22 +1,28 @@
 name: Upload DAGS to S3
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   deploy:
     name: Upload DAGS to Amazon S3
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials from account
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          name: Copy files to bucket with the AWS CLI
-          run: |
-              aws s3 cp ./dags s3://github-actions-ci-cd-tests --recursive --include "*.py"
+
+      - name: Upload DAGs to S3
+        run: |
+          aws s3 cp ./dags s3://github-actions-ci-cd-tests/dags \
+            --recursive --include "*.py"
